@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import re
 
 PalavrasReservadas = ["asm", "auto", "break", "case", "char", "const", "continue", "default", "do", "double", "else", "enum", "extern", "float", "for", "goto", "if", "int", "long", "main", "register", "return", "short", "signed", "sizeof", "static", "struct", "switch", "typedef", "union", "unsigned", "void", "volatile", "while"]
@@ -38,7 +39,6 @@ result = re.split("\n", codigo )
 
 # Para cada linha do codigo
 for linha in range( len( result ) ):
-  # print("linha " + str(linha + 1) + ":\t " + str(result[linha]))
   
   # Verifica se contem diretivas para ignorar a analise
   ignore = re.search( "^(//|#)(.*)", result[linha] )
