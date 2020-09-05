@@ -49,21 +49,28 @@ for linha in range( len( result ) ):
     continue
 
   # Quebra a linha em espaços e simbolos
-  tokens = re.split("(\W)", result[linha])
+  tokens = re.split("(\+\+|--|<=|>=|==|\+=|-=|\*=|/=|%=|\W)", result[linha])
+  
   # print( tokens )
   for token in tokens:
-    if token == '':
+    if token == '' or token == ' ':
       continue
     else:
       simbolo = ''
+      
       if token in SimbolosEspeciais:
         simbolo = "Simbolo especial"
+
+      elif token in SimbolosCompostos:
+        simbolo = "Simbolo Composto"
+
+      elif token in PalavrasReservadas:
+        simbolo = "Palavra Reservada"
+      
+      # elif token in SimbolosEspeciais:
+
+      tabela_analise.append( [ linha, token, simbolo ] )
       print( "\t", linha + 1, "\t", token, "\t\t", simbolo )
 
 
 print(tabela_analise)
-
-  
-
-
-
