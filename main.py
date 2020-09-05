@@ -10,25 +10,25 @@ SimbolosCompostos = ["++", "--", ">=", "<=", "+=", "-=", "*=", "/=", "%=", "=="]
 codigo = """#include <stdio.h>
 main()
 { 
-  int a = 0, b = 5;
+  int Ab = 0, b = 5;
  
   if (b <=  10)
     a += 5;
 
-  printf(“Valores a = %d e b = %d”, a, b);
+  printf("Valores a = %d e b = %d", a, b);
 }"""
 
 # tabela do resultado
 tabela_analise = []
 
-# Buffer para encontrar Simbolos Compostos
+# Buffer para armazenar constantes de Strings
 buffer = ""
+
+# Buffer Flag, para indicar inicio e encerramento do buffer
+buffer_flag = False
 
 # Variavel Descrição do simbolo
 simbolo = ""
-
-# Converte para letras minusculas
-codigo = codigo.lower()
 
 # Remove espaços em branco desnecessario 
 # ( dois ou mais espaços são convertidos para um espaço apenas )
@@ -48,29 +48,51 @@ for linha in range( len( result ) ):
     print( "\t", linha + 1, "\t", token, "\t\t", simbolo )
     continue
 
-  # Quebra a linha em espaços e simbolos
+  # Quebra a linha em espaços e simbolos e simbolos compostos
   tokens = re.split("(\+\+|--|<=|>=|==|\+=|-=|\*=|/=|%=|\W)", result[linha])
   
   # print( tokens )
   for token in tokens:
-    if token == '' or token == ' ':
+
+    simbolo = ''
+
+    if buffer_flag :
+      if token == '"' :
+        print( "\t", linha + 1, "\t", buffer, "\t\t", "String Constante" )
+        buffer_flag = False
+        buffer = ''
+        simbolo = "Delimitador de String"
+      else :
+        buffer += token
+        continue
+    else :
+      if token == '"' : # Caso seja inicio de string
+        buffer_flag = True # inicia o buffer
+        simbolo = "Delimitador de String"
+    
+    # Converte o token para minusculas
+    token = token.lower()
+
+    if token == '' or token == ' ' :
       continue
-    else:
-      simbolo = ''
-      
-      if token in SimbolosEspeciais:
-        simbolo = "Simbolo especial"
 
-      elif token in SimbolosCompostos:
-        simbolo = "Simbolo Composto"
+    elif token in SimbolosEspeciais:
+      simbolo = "Simbolo especial"
 
-      elif token in PalavrasReservadas:
-        simbolo = "Palavra Reservada"
-      
-      # elif token in SimbolosEspeciais:
+    elif token in SimbolosCompostos:
+      simbolo = "Simbolo Composto"
 
-      tabela_analise.append( [ linha, token, simbolo ] )
-      print( "\t", linha + 1, "\t", token, "\t\t", simbolo )
+    elif token in PalavrasReservadas:
+      simbolo = "Palavra Reservada"
+
+    elif token.isnumeric() :
+      simbolo = "Contante inteira"
+
+    else :
+      simbolo = "Identificador"
+
+    tabela_analise.append( [ linha, token, simbolo ] )
+    print( "\t", linha + 1, "\t", token, "\t\t", simbolo )
 
 
-print(tabela_analise)
+# print(tabela_analise)
