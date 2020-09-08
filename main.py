@@ -85,7 +85,7 @@ for linha in range( len( result ) ):
     elif token in PalavrasReservadas:
       simbolo = "Palavra Reservada"
 
-    elif token.isnumeric() :
+    elif token.isdigit() :
       simbolo = "Contante inteira"
 
     else :
