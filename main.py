@@ -2,8 +2,7 @@
 import re
 
 PalavrasReservadas = ["asm", "auto", "break", "case", "char", "const", "continue", "default", "do", "double", "else", "enum", "extern", "float", "for", "goto", "if", "int", "long", "main", "register", "return", "short", "signed", "sizeof", "static", "struct", "switch", "typedef", "union", "unsigned", "void", "volatile", "while"]
-Letras = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
-Digitos = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+
 SimbolosEspeciais = [".", ",", ";", "(", ")", ":", "+", "-", "/", "*", "%", "<", ">", "{", "}", "[", "]", "="]
 SimbolosCompostos = ["++", "--", ">=", "<=", "+=", "-=", "*=", "/=", "%=", "=="]
 
@@ -14,7 +13,6 @@ main()
  
   if (b <=  10)
     a += 5;
-
   printf(“Valores a = %d e b = %d”, a, b);
 }"""
 
@@ -66,8 +64,13 @@ for linha in range( len( result ) ):
 
       elif token in PalavrasReservadas:
         simbolo = "Palavra Reservada"
-      
-      # elif token in SimbolosEspeciais:
+ 
+      elif token.isalpha():
+		simbolo = "Variavel"
+ 
+      elif token.isdigit():
+		simbolo = "Constante"
+
 
       tabela_analise.append( [ linha, token, simbolo ] )
       print( "\t", linha + 1, "\t", token, "\t\t", simbolo )
