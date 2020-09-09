@@ -73,7 +73,7 @@ class Tokenizador:
   def __quebrar_simbolos( self, linha ):
     return re.split("(\+\+|--|<=|>=|==|\+=|-=|\*=|/=|%=|\W)", linha)
 
-  # Encontra diretivas de compilados
+  # Encontra diretivas de compilação
   def __buscar_diretivas( self, linha ):
     return re.search( "^(//|#)(.*)", linha )
 

@@ -17,6 +17,7 @@ main()
 
 # incilizacao objeto do analisador léxico
 tokenizador = Tokenizador()
+
 # chamada da função, retorna lista de tokens
 tokens = tokenizador.getTokens( codigo )
 
