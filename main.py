@@ -15,7 +15,9 @@ main()
   printf("Valores a = %d e b = %d", a, b);
 }"""
 
+# incilizacao objeto do analisador léxico
 tokenizador = Tokenizador()
+# chamada da função, retorna lista de tokens
 tokens = tokenizador.getTokens( codigo )
 
 print(tokens)
