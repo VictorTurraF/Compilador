@@ -17,7 +17,7 @@ from analizador_sintatico import AnalizadorSintatico
 # }"""
 
 codigo = """
-  a + b * ( c + d )
+  id + num * ( num + id )
 """
 
 #Analizador lexico
@@ -33,7 +33,7 @@ print(tokens)
 
 #Analizador sintatico
 
-terminais = [ "+", "-", "*", "/". "id", "num", "(", ")", "" ]
+terminais = [ "+", "-", "*", "/", "id", "num", "(", ")", "" ]
 
 producoes = [
   { 
@@ -58,4 +58,4 @@ producoes = [
   },
 ]
 
-sintetizador = AnalizadorSintatico( terminais, )
+sintetizador = AnalizadorSintatico( terminais, producoes )

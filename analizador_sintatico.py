@@ -6,16 +6,18 @@ class AnalizadorSintatico:
 
     __pilha_sintatica = []
 
-    def __init__( self, simbolos, tabela_sintatica ){
+    __cadeia = []
 
+    def __init__( self, simbolos, producoes ) :
         if type( simbolos ) == list :
             self.__simbolos = simbolos
 
-        if type( tabela_sintatica ) == list :
-            self.__tabela_sintatica = tabela_sintatica
-    }
+        if type( producoes ) == list :
+            self.__producoes = producoes
 
-    def analizar_sintaxe( tokens ) : bool
+    def verificar_sintaxe( tokens ) :
+        
+
 
 
 
