@@ -17,32 +17,36 @@ from analizador_sintatico import AnalizadorSintatico
 # }"""
 
 codigo = """
-  id + num * ( num + id )
+  id * ( id + num )
 """
 
 #Analizador lexico
 
+print("Tokens: ")
 # incilizacao objeto do analisador léxico
 tokenizador = Tokenizador()
 
 # chamada da função, retorna lista de tokens
 tokens = tokenizador.getTokens( codigo )
 
-print(tokens)
+# Analizador sintatico
+print("\nSintaxe:")
 
-
-#Analizador sintatico
-
-terminais = [ "+", "-", "*", "/", "id", "num", "(", ")", "" ]
+# OBSERVAÇÃO: A lista de terminais é organizada de forma a indexar a
+# lista de regras de determinada produção, ou seja, 
+# o indice de determinada regra de uma produção faz referencia à posição
+# onde se encontra o terminal ao qual pertençe a regra de produção
+ 
+terminais = [ "+", "-", "*", "/", "id", "num", "(", ")", "$" ]
 
 producoes = [
   { 
     "producao": "E", 
-    "regras" : [ 0, 0, 0, 0, ["T", "S"], ["T", "S"], ["T", "S" ]]
+    "regras" : [ 0, 0, 0, 0, ["T", "S"], ["T", "S"], ["T", "S" ], 0, 0]
   },
   { 
     "producao": "T", 
-    "regras" : [ 0, 0, 0, 0, ["F", "G"], ["F", "G"], ["F", "G" ]]
+    "regras" : [ 0, 0, 0, 0, ["F", "G"], ["F", "G"], ["F", "G" ], 0, 0]
   },
   { 
     "producao": "S", 
@@ -58,4 +62,13 @@ producoes = [
   },
 ]
 
+# inicia um analizador sintatico
 sintetizador = AnalizadorSintatico( terminais, producoes )
+
+# realiza a verificação da sintaxe, retorna se é valido ou não (boolean)
+sintaxe_valida = sintetizador.verificar_sintaxe( tokens )
+
+if( sintaxe_valida ) :
+  print("Sintaxe válida")
+else: 
+  print("Sintaxe invalida")
